@@ -1,0 +1,58 @@
+CFS(Completely Fair Scheduling)란?
+
+-->CFS(Completely Fair Scheduling)는 Linux에서 사용하는 CPU 스케줄링 알고리즘으로, 
+모든 프로세스에 CPU 시간을 공평하게 분배하기 위해 가상 실행 시간(vruntime)을 기준으로 
+가장 적게 실행된 프로세스를 우선적으로 선택하는 방식이다.
+
+
+CFS(Completely Fair Scheduling)의 필요성을 설명해볼래?
+
+-->✅ CFS (Completely Fair Scheduling)의 필요성
+🔹 1. 기존 스케줄링의 문제점
+
+기존 알고리즘들은 각각 한계가 있음:
+
+📌 FCFS
+먼저 온 프로세스가 계속 CPU 점유
+→ ❌ 긴 작업이 뒤를 막음 (Convoy effect)
+📌 SJF / SRTF
+짧은 작업만 계속 선택됨
+→ ❌ 긴 작업 starvation 발생
+📌 Priority Scheduling
+우선순위 낮은 프로세스는 실행 못함
+→ ❌ 심각한 starvation 문제
+📌 Round Robin
+공평하지만
+→ ❌ 컨텍스트 스위칭 오버헤드 큼
+→ ❌ 완전히 “공평”하지도 않음
+🔹 2. 그래서 필요한 것 → “진짜 공정한 스케줄링”
+
+👉 핵심 문제:
+
+기존 알고리즘들은 **공정성(fairness)**을 완벽하게 보장하지 못함
+
+🔹 3. CFS의 등장 이유
+
+CFS는 Linux에서 사용하는 스케줄러로
+👉 모든 프로세스에게 CPU 시간을 “공평하게” 나눠주기 위해 등장
+
+🔹 4. CFS의 핵심 아이디어
+✔️ “가상 실행 시간 (vruntime)”
+CPU를 덜 사용한 프로세스를 먼저 실행
+많이 사용한 프로세스는 뒤로 밀림
+
+👉 즉:
+
+CPU를 가장 적게 쓴 프로세스를 먼저 실행
+
+🔹 5. CFS가 해결하는 문제
+✅ starvation 해결
+오래 기다린 프로세스는 반드시 실행됨
+✅ 공정성 확보
+모든 프로세스가 비슷한 CPU 시간을 가짐
+✅ 응답성 개선
+인터랙티브 작업(사용자 입력 등) 빠르게 처리
+
+6. 한 줄 정리 (시험용🔥)
+CFS는 기존 스케줄링 알고리즘에서 발생하는 starvation과 불공정 문제를 해결하고, 
+모든 프로세스에 공평한 CPU 시간을 제공하기 위해 필요하다.
